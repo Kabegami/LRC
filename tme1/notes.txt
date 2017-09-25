@@ -1,0 +1,81 @@
+Notions acquises : Methode de résolution par tableaux,  methode de preuve par refutation, transformation du langage naturel en expression logique, lien pré-modèle-modèle
+
+Element a retenir : methode de preuve par refutation , F est satisfiable si l'algo de résolution par tableau sur non(F) est insatisfiable.
+
+------------------------------------------------------------------------------
+EXERCICE 2
+------------------------------------------------------------------------------
+
+F1 = and A not imp B A
+insatisfiable car toutes les feuilles sont fermées.
+
+F2 = imp and or A C or B C imp not B or and A B C
+satisfiable car il y a des feuilles ouvertes : ex non(a) non(c)
+F2 est valide car non(F2) n'a que des feuilles non satisfiables.
+
+F3 = not imp imp A B imp not B not A
+F3 est insatisfiable car toutes ses feuilles sont fermées.
+De ce fait ça négation est satisfiable.
+
+F4 = or and imp A B imp B C and imp C B imp B A
+F4 est satisfiable car il existe des feuilles ouvertes qui donnent des résultats.
+F4 n'est pas valide car sa negation n'est pas insatisfiable.
+
+F5 = equiv imp imp A B imp B C imp A C
+F5 est satisfiable car il y a des des feuilles ouvertes : (A, non(C), B,non(A) ou B)
+F5 est non valide car il y a des feuilles fermées.
+
+F6 = imp and imp A B imp B C imp A C
+F6 est satisfiable car il y a des feuilles ouvertes : A, non(B)
+F6 est valide car sa negation est insatisfiable
+
+-----------------------------------------------------------------------------
+EXERCICE 3
+-----------------------------------------------------------------------------
+1) F1 :  fievre <-> sup38
+F2 :  grippe -> tamiflu
+F3 :  fievre ^ toux -> grippe
+F4 :  toux ^ sup38
+
+2)
+F = ((fievre <-> sup38) and (grippe -> tamiflu)) and ((fievre ^ toux -> grippe) and toux ^ sup38)
+
+F1 ^ (F2 ^ (F3 ^ (F4 ^ non(TAMIFLU))))
+
+on regarde si F1 ^ F2 ^ F3 ^ F4 |= tamimlu
+F = F1 ^ F2 ^ F3 ^ F4
+par preuve par refutation on verifie que F et non tamiflu est insatisfiable
+car quand F est vrai alors tamiflu devrait l'être aussi donc leur somme doit valoir 0
+c'est à dire G = F1 ^ F2 ^ F3 ^ F4 ^ non TAMIFLU
+
+A partir de la formule : and equiv FIEVRE SUP38 and imp GRIPPE TAMIFLU and imp or FIEVRE TOUX GRIPPE and and TOUX SUP38 not TAMIFLU
+sur le logiciel, toutes les feuilles sont fermées donc elle est insatisfiable.
+
+3) desormais F3 : fievre ^ toux -> grippe v bronchite
+avec la formule : and equiv FIEVRE SUP38 and imp GRIPPE TAMIFLU and imp or FIEVRE TOUX or GRIPPE BRONCHITE and and TOUX SUP38 not TAMIFLU
+on obtient une formule satisfiable lors de la preuve par refutation.
+On peut donc en conclure que le medecin peut prescrire un medicament non adapté dans au moins un des cas.
+De ce fait la prise n'est plus indiqué.
+
+-------------------------------------------------------------------------------
+EXERCICE 4
+-------------------------------------------------------------------------------
+
+3) Il nous faut au moins 3 variables.
+je vais essayer d'optenir les pré-modèles :
+
+P3 = A
+P2 = A,B
+P1 = A,B,C
+
+Alors on a M(P3) = A,B,C et A,B,non(C) et A,non(B),non(C) et A,non(B),C
+           M(P2) = A,B,C et A,B,non(C)
+           M(P1) = A,B,C
+
+on a M(P1) inclus M(P2) inclus M(3)
+
+4) Il n'existe pas de lien entre le nombre de pré-modèle optenus et le nombre de modèle d'une formule car un modèle peut être couvert par plusieurs modèles et un modèle peut être couvert par plusieurs modèles.
+
+F = A V (A ^ B) V (A ^ B ^ C)
+On observe que cette formule donne les pré-modèle souhaités à partir du logiciel.
+
