@@ -1,0 +1,40 @@
+BECIRSPAHIC LUCAS
+
+EXERCICE 1
+-----------------------------------------------
+2) i) L'annonce ne retourne pas de monde possible
+   ii) L'annonce retourne tous les mondes
+
+3) i) let x1 = upd_pa model0 (Kn b (Ng(holds_b_verte)))
+      let x2 = upd_pa x1 (Ng (Kn a(holds_b_rouge)))
+      let x3 = upd_pa x2 (Kn a (Ng(holds_a_jaune)))
+A la fin de la sequence il y a 1 unique monde possible : ['r', 'v', 'j']
+donc chaque joueur sait quelles cartes les autres possèdent
+
+ii) let x1 = upd_pa model0 (Kn c (Ng(holds_c_jaune)))
+Mo [('r','j','v'),('j','r','v'),('j','v','r'),('v','j','r')]
+let x2 = upd_pa x1 (Ng (Kn a (Kn b holds_b_jaune)))
+Mo [('j','r','v'),('j','v','r')]
+let x3 = upd_pa x2 (Kn c ( Ng(holds_b_verte)))
+Mo [('j','r','v')]
+
+il y a un unique monde possible [j,r,v]
+donc chaque joueur sait quelles cartes les autres possèdent
+
+rq: A partir des annonces, les agents peuvent retirer des mondes non distingables, c'est à dire ils ont plus d'information.
+
+
+EXERCICE 2
+-----------------------------------------------
+2) L'agent i connait la date d'anniversaire
+Soit D l'ensemble des dates possibles
+Fi = Disjonction(d appartenant à D | Ki d) 
+
+3) i) Quand Albert dit qu'il sait que bernard ne connait pas la date d'anniversaire.
+Les seul mois ou Albert est sur que Bernard ne sait pas sont le juin et le juillet.
+Maintenant Bernard sait que le mois est juin ou juillet.
+
+Alors il est impossible que l'anniversaire soit le 18 ou le 19 donc elimine le mois  de mai et le mois de juin
+
+let x1 = upd_pa model0 (Ng(Kn knWhich a))
+      let x2 = upd_pa model0 Ng(Kn a knWhich)

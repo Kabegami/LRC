@@ -1,0 +1,37 @@
+BECIRSPAHIC Lucas
+
+Notions abordées : Logique modale, algorithme des tableaux
+
+-------------------------------------------------
+Exercice 1
+-------------------------------------------------
+2) On créer le monde
+W = {w1,w2}
+R = {(w1,w2), (w2,w2)}
+I(Q) = w1
+I(P) = w2
+
+On peut boucler autant de fois qu'on veut sur w2
+
+3) On veut créer le connecteur d'implication. Pour ce faire, il faut créer 2 règles :
+L'implication Top_Down et L'implication Bottom up.
+L'implication Top_Down : Quand un noeud w a une formule A-> B, on ajoute à w : isItTrue not A et isItTrue B au noeud w.
+
+
+-------------------------------------------------
+Exercice 2
+-------------------------------------------------
+
+1) On remarque que le logiciel utilise l'algorithme des tableaux et nous retourne des conditions pour que la formule soit vraie.
+On remarque qu'il elimine toujours les formules 'classiques' ex : prendre les 2 sous parties d'un ET, mais maintenant il créer des feuilles correspondants à un nouveau monde pour le POSSIBLE avec la formule à respecter intrégrée dans le monde. C'est logique car comme il donne les valeurs rendant la formules vrai , cela correspond à des hypothèses à vérifier
+
+2 etapes :
+i) Top-Down : Décompose les formules, créer des nouveau tableau pour les closes Beta et pour les NECESSAIRE et POSSIBLE.
+ii) Bottom-Up : Remonte les valeurs trouvées, notament pour le POSSIBLE ou le NECESSAIRE ou les feuilles remontent leur résultat afin d'avoir un résultat final.
+
+2) a) La formule est satisfiable.
+   b) Satisfiable pour pos pos pos p vrai
+   c) Satisfiable pour q 
+
+3) Pour montrer F est valide: nec(p->q) -> (nec(p) -> nec(q)) avec Lotrec, il suffit de montrer que sa négation est insatisfiable.
+Avec la formule non(F) : not imp nec imp P Q imp nec P nec Q, on obtient bien un arbre avec que des feuilles clash donc non(F) est insatisfiable donc F est valide.

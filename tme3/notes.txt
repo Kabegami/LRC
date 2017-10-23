@@ -1,0 +1,55 @@
+BECIRSPAHIC LUCAS
+
+EXERCICE 1
+-----------------------------
+
+a v b = not(not(a) ^ not(b))
+
+1) not and not knows P not knows knows P
+Formule satisfiable, valide car il  y a pas de feuille satisfiable
+
+2 ) and knows P knows knows not P
+Formule insatisfiable
+
+3) a = Kp
+b = KKnot(p)
+A -> B <-> not(A) or B <=> not(not(not(A) and not(B))) = not(A and not(B))
+
+not and knows P not knows knows P
+dans une feuille on a un monde reflexif avec not P(première partie de l'implication)
+dans une autre, on a la résolution du ET c'est à dire : KKp
+
+A - > B : not(A and not(B))
+B -> A : not(B and not(A))
+
+EXERCICE 2
+------------------------------
+Procédure : On montre dans S5 que F est satisfiable et que nonF est insatisfiable.
+On montre dans S4 que non F est satisfiable.
+F = and and not not not knows P not knows not knows P not and knows not knows P not not knows P
+la formule ne marche pas.
+
+Le système S5 possède l'euclidianité comme axiome suplémentaire (non K P -> K not K p)
+Donc => de l'implication est toujours vrai car il s'agit de l'axiome 5
+De ce fait dans le système S4 cet axiome n'est pas necessairement respecté donc la formule n'est pas valide.
+et <= est vrai par l'axiome T en posant F = (not K K p) et donc est vrai à la fois en S5 et S4
+
+
+Pour l'equivalence, on montre les 2 implications,
+not and not knows P not knows not knows P
+premiere partie implication : not and not knows P not knows not knows P
+not and knows not knows P knows P
+
+EXERCICE 3
+------------------------------
+NON FAIT
+
+EXERCICE 4
+------------------------------
+
+Avec les contraintes on obtient :
+R1 = {(w1,w2) , (w4, w3)}
+R2 = {(w1,w2)} car il nous faut une liaison et les autres ne conviennent pas
+R3 = {(w1,w3), (w2, w4)}
+methodes : on construit des graphes pour chaque contraintes et ont met les arêtes de manière à ce qu'il n'y ait pas de conflit
+Je n'ai pas eu le temps de vérifier
