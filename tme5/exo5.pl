@@ -17,3 +17,6 @@ ou(0,0,0).
 xor(X,Y,1) :- ou(X,Y,1), et(X,Y,0).
 xor(X,Y,0) :- ou(X,Y,0).
 xor(X,Y,0) :- et(X,Y,1).
+
+circuit(X,Y,1) :- et(X,Y,R0),non(R0,R1),  non(X, R2), xor(R1,R2,R3), non(R3,1).
+circuit(X,Y,0) :- et(X,Y,R0),non(R0,R1),  non(X, R2), xor(R1,R2,R3), non(R3,0).

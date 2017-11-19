@@ -1,5 +1,5 @@
 /* Base de données : Les Rougon-Macquart*/
-pere(marius, pierre).
+pere(rougon, pierre).
 pere(macquart, antoine).
 pere(macquart, ursule).
 pere(pierre, aristide).
@@ -32,8 +32,6 @@ parents(X,Y,Z) :- pere(X,Z), mere(Y, Z).
 grandPere(X,Y) :- pere(X,Z), pere(Z,Y).
 grandPere(X,Y) :- pere(X,Z), mere(Z,Y).
 frereOuSoeur(X,Y) :- pere(Z,X), pere(Z,Y), mere(W,X), mere(W, Y).
-ancetre(X,Y) :- pere(X,Y).
-ancetre(X,Y) :- mere(X,Y).
-ancetre(X,Y) :- pere(Z, Y), ancetre(X, Z).
-ancetre(X,Y) :- mere(Z, Y), ancetre(X, Z).
+ancetre(X,Y) :- parent(X,Y).
+ancetre(X,Y) :- parent(Z, Y), ancetre(X, Z).
                 

@@ -106,4 +106,103 @@ prolog nous renvoi les valeurs que peut prendre la variable X c'est à dire les 
 EXERCICE 4
 ===========================
 
+1) J'ai choisit les rougon macquart , on construit une base donnée de la forme :
+pere(rougon, pierre).
+mere(adelaide, pierre).
+
+2) On définit parent de la manière suivante :
+parent(X,Y) :- pere(X,Y).
+parent(X,Y) :- mere(X,Y).
+c'est à dire si c'est le père ou la mère, il s'agit du parent.
+
+3)
+---------------------------
+| ?- parent(aristide, X).
+
+X = maxime ? ;
+
+X = clothilde ? ;
+
+X = victor ? ;
+
+La requete nous renvoie les enfants d'aristide(Saccard).
+--------------------------
+La requete parent(A,B) nous renvoie toutes les paires de (pere/mere, enfants).
+
+6) On définit ancetre de manière recursive par :
+----------------------------
+ancetre(X,Y) :- parent(X,Y).
+Pour le cas de base , si X est un parent de Y, alors il est son ancetre.
+
+ancetre(X,Y) :- parent(Z, Y), ancetre(X, Z).
+il s'agit de la recursion, si Z est un parent de Y alors X est un ancetre de Z.
+
+Pour optenir les ancetres d'une personne on fait une requete de la forme :
+--------------------
+| ?- ancetre(X,maxime).
+
+X = aristide ? ;
+
+X = pierre ? ;
+
+X = felicie ? ;
+
+X = rougon ? ;
+
+X = adelaide ? ;
+--------------------
+
+
+
+
+===========================
+EXERCICE 5
+===========================
+
+1) On construit les prédicats de bases(et, ou, non) avec leur table de vérité par exemple :
+non(0,1).
+non(1,0).
+
+2) requete : et(X,Y,1).
+retourne les valeurs de X et Y qui rendent le AND vrai.
+
+requete : et(0,0,R).
+retourne le resultat de l'opération AND(0,0) c'est à dire 0.
+
+requete : et(X,Y,R)
+retournes toutes les combinaisons valide, c'est à dire la table de vérité du AND.
+
+3) En prolog, les fonctions ne renvoient pas de résulats. Par consequent pour constuire le circuit, on dit que :
+circuit(X,Y,1) :- et(X,Y,R0),non(R0,R1),  non(X, R2), xor(R1,R2,R3), non(R3,1).
+
+4) La requete est circuit(X,Y,R) et retourne :
+----------------------
+R = 1
+X = 1
+Y = 1 ? ;
+
+R = 1
+X = 0
+Y = 0 ? ;
+
+R = 1
+X = 0
+Y = 1 ? ;
+
+R = 0
+X = 1
+Y = 0 ? ;
+----------------------
+ce qui correspond bien à la table de vérité de l'implication.
+
+5) requete : circuit(0,Y,R).
+--------------------------
+R = 1
+Y = 0 ? ;
+
+R = 1
+Y = 1 ? ;
+--------------------------
+On veut savoir quels sont les choix possibles quand X est fixé à 0.
+et on remarque bien que comme l'implication quand le premier terme est à 0, le résultat est toujours 1.
 
