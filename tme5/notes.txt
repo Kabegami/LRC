@@ -1,5 +1,7 @@
 BECIRSPAHIC LUCAS
 
+remarques : Prolog utilise la regle de résolution pour faire ses preuves.
+
 ==============================================
 EXERCICE 1
 ==============================================
@@ -24,16 +26,37 @@ i3 : C5, C1
 retourne rien
 Donc la formule r(f(f(a),b)) est vraie.
 
-Trace de prolog :
-Dans les lignes, il dit que pour montrer r(f(f(a)),b), il faut montrer p(f(a),b) par C2 et pour ce faire r(a,b).
-Conclusion : A chaue fois prolog part de la formule de départ et cherche ce qu'il faut montrer pour l'avoir , puis apres il remonte en montrant que les conditions sont respectées.
-
 F2 = p(f(a),b)
 
 On rajoute not(F2) a nos clauses.
 On a F1 = Res(not(F2), C3) avec sigma = [X = a; Y = b]
+     F1 = -r(a,b)
      F2 = Res(F1, C1)
-     F3 = clash
+     F2 = void.
+
+Trace de prolog :
+| ?- r(f(f(a)),b).
+      1    1  Call: r(f(f(a)),b) ? 
+      2    2  Call: p(f(a),b) ? 
+      3    3  Call: r(a,b) ? 
+      3    3  Exit: r(a,b) ? 
+      2    2  Exit: p(f(a),b) ? 
+      1    1  Exit: r(f(f(a)),b) ?
+
+Dans ces lignes, il dit que pour montrer r(f(f(a)),b), il faut montrer p(f(a),b) et pour ce faire il montrer r(a,b) or on a r(a,b) donc il fait remonter l'information.
+
+{trace}
+| ?- p(f(a),b).
+      1    1  Call: p(f(a),b) ? 
+      2    2  Call: r(a,b) ? 
+      2    2  Exit: r(a,b) ? 
+      1    1  Exit: p(f(a),b) ? 
+
+(1 ms) yes
+{trace}
+
+
+Conclusion : A chaue fois prolog part de la formule de départ et cherche ce qu'il faut montrer pour l'avoir , puis apres il remonte en montrant que les conditions sont respectées.
      
 ==========================================
 EXERICE 2
@@ -50,29 +73,66 @@ F2 = clash
 
 2) Analyses des traces :
 -----------------------------------
-[trace]  ?- q(X,b).
-   Call: (6) q(_G3758, b) ? creep
-   Exit: (6) q(b, b) ? creep
-X = b .
-----------------------------------
-_G3758 correspond à un nom de variable pour prolog
+{trace}
+| ?- q(X,b).
+      1    1  Call: q(_23,b) ? 
+      1    1  Exit: q(b,b) ? 
+
+X = b ?
+
+yes
+{trace}
+Si on repond oui à X = b, la preuve s'arrête car on a q(X,X) qui rend l'affirmation vrai. De plus on remarque que :
+_23 correspond à un nom de variable pour prolog.
 le call correspond a la formule G.
-le exit il dit que q(b,b) rend la formule vraie.
+le exit nous indique q(b,b) rend la formule vraie.
 donc il nous retourne que X = b.
 
 
-2ème solutions.
-Redo: (6) q(_G2831, b) ? creep
-Call: (7) r(_G2831, _G2905) ? creep
-Exit: (7) r(a, b) ? creep
-Call: (7) q(b, b) ? creep
-Exit: (7) q(b, b) ? creep
-Exit: (6) q(a, b) ? creep
-cette fois si il utilise la formule C3
+{trace}
+| ?- 
+q(X,b).
+      1    1  Call: q(_23,b) ? 
+      1    1  Exit: q(b,b) ? 
+
+X = b ? ;
+      1    1  Redo: q(b,b) ? 
+      2    2  Call: r(_23,_92) ? 
+      2    2  Exit: r(a,b) ? 
+      3    2  Call: q(b,b) ? 
+      3    2  Exit: q(b,b) ? 
+      1    1  Exit: q(a,b) ? 
+
+X = a ? 
+
+(1 ms) yes
+{trace}
+
+Si on refuse X = b, alors il essaye d'utiliser r(X,Y),q(Y,Z) pour la preuve.
+d'ou le call r(X,Z) dont il déduit qu'il faut que r(a,b) soit vrai.
 on a F1 = R(not(G), C3) sigma = (Z = b, X = _G2831)
      F2 = R(F1, C4) sigma = (_G2831 = a, Y = b)
      F3 = R(C2,C3) sigma (X = b)
- 
+
+
+Maintenant, on étudie la requete q(b,X)
+| ?- q(b,X).
+      1    1  Call: q(b,_23) ? 
+      1    1  Exit: q(b,b) ? 
+
+X = b ? ;
+      1    1  Redo: q(b,b) ? 
+      2    2  Call: r(b,_92) ? 
+      2    2  Fail: r(b,_80) ? 
+      1    1  Fail: q(b,_23) ? 
+
+no
+
+Il essaye d'abord avec X = b, car q(b,b) est vrai.
+Si on refuse X = b, il essaye d'utiliser r(X,Y),q(Y,Z)
+or r(b, Y) echoue car on a uniquement r(a,b) donc prolog retourne non.
+{trace}
+
 
 
 ==============================================
@@ -99,6 +159,17 @@ cons(zoe).
 prolog nous renvoi les valeurs que peut prendre la variable X c'est à dire les étudiants qui réussissent.
 
 3) Le resultat de la requête est : Pascal, Zoe
+F1 = -serieux V reussit
+F2 = -cons V devoir
+F3 = -devoir V serieux
+h1 = cons(pascal)
+h2 = cons(Zoe)
+
+F5 <- F4,F1 = -serieux
+F6 <- F5,F3 = -devoir
+F7 <- F6,F2 = -cons
+h1, F7 = void
+h2, F7 = void
 
 4)
 
@@ -135,7 +206,7 @@ ancetre(X,Y) :- parent(X,Y).
 Pour le cas de base , si X est un parent de Y, alors il est son ancetre.
 
 ancetre(X,Y) :- parent(Z, Y), ancetre(X, Z).
-il s'agit de la recursion, si Z est un parent de Y alors X est un ancetre de Z.
+il s'agit de la récursion, si Z est un parent de Y alors X est un ancetre de Z.
 
 Pour optenir les ancetres d'une personne on fait une requete de la forme :
 --------------------
@@ -159,7 +230,7 @@ X = adelaide ? ;
 EXERCICE 5
 ===========================
 
-1) On construit les prédicats de bases(et, ou, non) avec leur table de vérité par exemple :
+1) On construit les prédicats de base(et, ou, non) avec leurs tables de vérité par exemple :
 non(0,1).
 non(1,0).
 
@@ -174,8 +245,9 @@ retournes toutes les combinaisons valide, c'est à dire la table de vérité du 
 
 3) En prolog, les fonctions ne renvoient pas de résulats. Par consequent pour constuire le circuit, on dit que :
 circuit(X,Y,1) :- et(X,Y,R0),non(R0,R1),  non(X, R2), xor(R1,R2,R3), non(R3,1).
+On veut que la sortie du circuit soit 1, et on fait passer les variables R0, R1 ... qui correspondent aux resultats des portes logiques dans les portes suivantes selon le schema.
 
-4) La requete est circuit(X,Y,R) et retourne :
+4) La requete est : circuit(X,Y,R) et retourne :
 ----------------------
 R = 1
 X = 1

@@ -14,4 +14,7 @@ filtre(L1, [X | L2], L3) :- supprime(L1, X, S), filtre(S, L2, L3).
 
 palindrome(X) :- inverse(X,X).
 
-dernier(X, L) :- concatene(L2, X, L).
+dernier(X, L) :- concatene(L2, [X], L).
+palindrome2([X]).
+palindrome2([]).
+palindrome2([X | L]) :- concatene(L2, [X], L), palindrome2(L2).
