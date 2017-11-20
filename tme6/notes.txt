@@ -18,3 +18,5 @@ Puis on définis la recursion en faisant attention que Prolog n'accepte pas de p
 quand on regarde la trace de concat(L1, L2, [a,b,c,d]) renvoi toutes les décomposition possibles de la liste [a,b,c,d]
 
 different en prolog : \=
+
+
