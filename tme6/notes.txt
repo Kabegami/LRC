@@ -1,0 +1,20 @@
+BECIRSPAHIC Lucas
+==================================
+EXERCICE 1
+==================================
+quelques remarques :
+i) Les variables peuvent être des Listes.
+ii) La requete 4 est fausse car X = a et y = [b,c], si on posait y = [[b,c],d]
+alors on aurait [a,[[b,c],d]] ce qui ne correspond pas à l'expression de gauche.
+iii) En revanche, cela fonctionne différament pour l'opérateur | qui correspond au reste de la liste et dans ce cas pour la requete 5 Y = [[b,c],d] marche.
+
+==================================
+EXERCICE 2
+==================================
+rq : On définit les prédicats de manière récursives.
+methode : on trouve un cas de base, pour concat on a [] + L = L
+Puis on définis la recursion en faisant attention que Prolog n'accepte pas de predicat à l'interieur d'un predicat, donc il faut stoquer dans une variable.
+
+quand on regarde la trace de concat(L1, L2, [a,b,c,d]) renvoi toutes les décomposition possibles de la liste [a,b,c,d]
+
+different en prolog : \=
