@@ -17,4 +17,4 @@ palindrome(X) :- inverse(X,X).
 dernier(X, L) :- concatene(L2, [X], L).
 palindrome2([X]).
 palindrome2([]).
-palindrome2([X | L]) :- concatene(L2, [X], L), palindrome2(L2).
+palindrome2([X | [Y|L]]) :- concatene(L2, [X], [Y|L]), palindrome2(L2).

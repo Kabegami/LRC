@@ -1,0 +1,4 @@
+syntaxe :
+_ est une variable anonyme(sa valeur de n'importe pas).
+
+rq: On a pas le droit d'avoir des 'expressions flotantes', qui sont pas relié à un subs, equiv , ou une assertion de concept / roles.
