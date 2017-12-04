@@ -1,0 +1,13 @@
+BECIRSPAHIC LUCAS
+
+remarques :
+i) De manière générale, il faut évité d'avoir des verification d'égalité, et plutot utiliser la meme variable en entrée et dans la fonction
+ex : in(Mot, [Mot | _]) plutot que in(Mot, [W | R]) :- W = Mot
+ii) Quand on construit une liste de resultat Res dans une fonction récursive. On 'ajoute' des elements en disant en entrée que [E | Res].
+Ainsi on dit que Res possède l'element et l'element racine aura tous les E rajoutés.
+
+construction chercheDico:
+base : si le dictionnaire est vide,  la liste de mot est vide
+recurrence 2 cas:
+i) Si le mot est un prefix de la tete de liste du dico alors on 'ajoute' E dans res et on passe cherceDico avec le reste
+ii) Sinon le mot n'est pas un prefix donc on cherche sur le dico sans rien changé à res
