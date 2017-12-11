@@ -1,4 +1,31 @@
 syntaxe :
 _ est une variable anonyme(sa valeur de n'importe pas).
+\+ correspond au not en prolog
 
 rq: On a pas le droit d'avoir des 'expressions flotantes', qui sont pas relié à un subs, equiv , ou une assertion de concept / roles.
+
+Dans ces notes on pose : subsuption : <
+================================================================
+
+Le but de ce TP est de construire une relation de Subsomptions complete.
+Celle de base de prolog étant simpliste.
+
+7) Chat < X devrait renvoyer tous les ensembles qui subsumes le concept Chat.
+   X < mammifere devrait renvoyé tous les ensembles subsumés par le concept mammifere, le résultat attendu devrait être : chien , chat, félin, canidé.
+
+10) On a plutot intérer à préférer le subsomption de la Tbox, car à partir des instances on peut utiliser la subsomption de la Tbox.
+
+===============================================================
+3.2) i) gère le cas : A < B ^ C. Il vérifie que A < B et A < C.
+ex : chat < animal ^ felin
+ii) gère le cas : E=(D1 ^ D2) < D et C < E
+ex : le cas Humain ^ Masculin < Animal et Homme < Humain ^ Masculin donc Homme < Animal
+iii) gère le cas : C ^ C < D
+ex : c'est la subsonption de C < D
+iv) et v) gère le cas : C1 ^ C2 < D, il regarde si C1 < D ou si C2 < D
+ex: Humain ^ Feminin < Vivant, on a Humain < Vivant donc la proposition est vraie.
+vi) gère le cas C1 < E1 et E1 ^ C2 < D donc C1 ^ C2 < D.
+ex: jus ^ pomme. et pomme < fruit et fruit ^ jus < JusDeFruit donc jus ^ pomme < JusDeFruit.
+vii ) c'est la même chose que la vi) en inversant C1 et C2.
+
+3.3) Normalement ces règles sont suffisantes pour les Tbox, en revanche il nous en manque encore pour les Abox

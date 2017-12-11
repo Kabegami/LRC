@@ -6,17 +6,53 @@ quelques remarques :
 i) Les variables peuvent être des Listes.
 ii) La requete 4 est fausse car X = a et y = [b,c], si on posait y = [[b,c],d]
 alors on aurait [a,[[b,c],d]] ce qui ne correspond pas à l'expression de gauche.
-iii) En revanche, cela fonctionne différament pour l'opérateur | qui correspond au reste de la liste et dans ce cas pour la requete 5 Y = [[b,c],d] marche.
+
+L'opérateur [X | Y] prend la tête de liste. Donc si on prend Z = [X | Y], on obtient une liste de la forme X + Y avec X un element et + l'opérateur de concaténation.
+On peut donc construire l'opérateur concatene à partir de l'opérateur | (cons).
 
 ==================================
 EXERCICE 2
 ==================================
 rq : On définit les prédicats de manière récursives.
-methode : on trouve un cas de base, pour concat on a [] + L = L
+methode : on trouve un cas de base
 Puis on définis la recursion en faisant attention que Prolog n'accepte pas de predicat à l'interieur d'un predicat, donc il faut stoquer dans une variable.
 
-quand on regarde la trace de concat(L1, L2, [a,b,c,d]) renvoi toutes les décomposition possibles de la liste [a,b,c,d]
+------------ CONCATENE ---------------------------------------
+Pour constuire concatene :
+cas de base [] + L = L
+On prend la tete de liste du premier element et on dit que cela doit être le premier element du resultat.
+Puis on concatene(le reste de la premier Liste, ainsi que la seconde liste.)
+L'algorithme ce termine car notre cas de base nous assure qu'en absence d'élément dans L1 il renvoie L2 donc la liste L2 ce trouveras tout à la fin du resultat, et on remontant on greffe un element de la liste initiale.
 
-different en prolog : \=
+expériences : 
+Le resultat de concat(L1, L2, [a,b,c,d]) renvoie toutes les combinaisons de liste pouvant former [a,b,c,d] c'est à dire ( [a] + [b,c,d] ; [a,b,] + [c,d]; [a,b,c] + d]
+Le resultat de concat(L1, [d] , [a,b,c,d]) renvoie [a,b,c]
+et concatene refuse les expressions invalides.
+
+
+-------------  Inverse ----------------------------------------
+inverse(L1, L2).
+Si L2 est l'inverse de L1 alors le premier element de L1 doit être le dernier dans L2.
+Donc a chaque étape on vérifie cela en regardant un element différent jusqu'a avoir 2 listes vides.
+
+
+-------------- Supprime ----------------------------------------
+On parcours les element de la liste 1 par 1 et on regarde l'element.
+Si ce n'est pas l'element à supprimer, on concatene l'element avec notre liste et on regarde le reste de la liste.
+Sinon on ne prend pas l'element et on regarde le reste de la liste.
+
+
+-------------- filtre -----------------------------------------
+On parcours tout les element de la liste de filtre, et on applique supprimer(L, element, S) sur notre liste à filtrer.
+
+
+-------------- palindrome -------------------------------------
+La version la plus simple consiste à regarder si inverse(X,X) cad notre mot est égal à son inverse.
+Une autre methode consiste à regarder si le premier element est égal dernier puis de reappeler palindrome sur les ements restants.
+
+
+syntaxe :
+i) different en prolog : \=
+ii) pour afficher une variable X en prolog, on utilise write(X)
 
 
