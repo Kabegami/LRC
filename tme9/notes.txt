@@ -1,0 +1,18 @@
+BECIRSPAHIC LUCAS
+
+logiciel = tina
+
+
+================================================
+EXERCICE 4
+================================================
+
+1) La première modélisation est centré autour de l'agent.
+On remarque tous de meme qu'il produit beaucoup plus de roues que de carrosserie. On veut éviter ce problème.
+Version 2, on pose des états de limitation stop caro et stop roue qui débute la construction avec 1 et 4 jetons. Quand le jouet est finit, ils récupèrent leurs jeton. Ainsi, on est sur de toujours fabriquer un jouet dès que possible.
+
+Maintenant, on va essayer de paraléliser le problème avec 2 lutins.
+Il y a plusieurs approches possible
+i) on garde le meme schema qu'avant en metant N lutins dans l'état initial. Mais, qu'un seul lutin qui lance une action très inneficace.
+ii) On peut modéliser un circuit indépendant pour chaque lutin.
+iii) On prend un poste d'assembleur et on relie la limite de fabrication sur les roues et la carossorie à tous les agents.

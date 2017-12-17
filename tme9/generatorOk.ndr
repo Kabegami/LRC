@@ -1,0 +1,31 @@
+p 315.0 50.0 {C attente} 0 n
+p 315.0 360.0 {Roue attente} 0 n
+p 605.0 95.0 {cpt jouets} 0 n
+t 135.0 100.0 sculpte 0 w n
+t 145.0 285.0 {fabriquer roues} 0 w n
+p 195.0 60.0 s 0 n
+t 255.0 90.0 p 0 w n
+p 55.0 205.0 libre 1 n
+t 470.0 190.0 fin e 0 w n {} ne
+p 70.0 365.0 {stop roue} 4 n
+p 40.0 55.0 {stop caro} 1 n
+e libre sculpte 1 n
+e libre 0.9749463266 63.78871374 {fabriquer roues} 0.3843512796 40 1 n
+e {fabriquer roues} {Roue attente} 1 n
+e {fabriquer roues} 0.523843393 53.60037313 libre 0.7632323381 60.20797289 1 n
+e sculpte s 1 n
+e s p 1 n
+e p {C attente} 1 n
+e {Roue attente} fin 4 n
+e {C attente} fin 1 n
+e fin {cpt jouets} 1 n
+e fin 0.4833751325 124.6795893 libre 0.03169717535 111.1980216 1 n
+e {stop roue} {fabriquer roues} 1 n
+e fin 0.7715327199 192.7615107 {stop roue} 0.9282100346 142.2251736 4 n
+e p 0.7525260568 63.00793601 libre 0.08262467026 72.56031973 1 n
+e {stop caro} sculpte 1 n
+e fin {stop caro} 1 n
+e libre fin 1 n
+h generatorOk
+
+
