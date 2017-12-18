@@ -2,17 +2,24 @@ BECIRSPAHIC LUCAS
 
 logiciel = tina
 
+rq: i) On peut utiliser le graphe des marquages afin de voir si le réseau est vivant ou non.
+ii) Tout marquage possédant un état puits n'est pas vivant. Mais la réciproque n'est pas vrai, on peut avoir un réseau non vivant qui n'admet pas de puits.
+iii) Un réseau est réversible si on peut revenir au marquage initial. Par conséquent un réseau vivant est réversible mais l'inverse n'est pas vrai.
+iv) Un réseau est sans blocage s'il n'a pas de puits
+v) On peut placer des conditions de temps sur les transitions.
+vi) Les propriétés du réseau dépendent fortement du marquage initial
+
 
 ================================================
 EXERCICE 4
 ================================================
 
-1) La première modélisation est centré autour de l'agent.
-On remarque tous de meme qu'il produit beaucoup plus de roues que de carrosserie. On veut éviter ce problème.
-Version 2, on pose des états de limitation stop caro et stop roue qui débute la construction avec 1 et 4 jetons. Quand le jouet est finit, ils récupèrent leurs jeton. Ainsi, on est sur de toujours fabriquer un jouet dès que possible.
+1) La première modélisation est centrée autour de l'agent.
+On remarque tout de meme qu'il produit beaucoup plus de roues que de carrosserie. On veut éviter ce problème.
+Version 2, on pose des états de limitation stop caro et stop roue qui débutent la construction avec 1 et 4 jetons. Quand le jouet est finit, les états stop récupèrent leurs jeton. Ainsi, on est sur de toujours fabriquer un jouet dès que possible.
 
-Maintenant, on va essayer de paraléliser le problème avec 2 lutins.
+Maintenant, on va essayer de paraléliser le problème avec 2(ou plus) lutins.
 Il y a plusieurs approches possible
-i) on garde le meme schema qu'avant en metant N lutins dans l'état initial. Mais, qu'un seul lutin qui lance une action très inneficace.
+i) on garde le meme schema qu'avant en metant N lutins dans l'état initial. Mais, il y a un seul lutin qui lance une action très inneficace.
 ii) On peut modéliser un circuit indépendant pour chaque lutin.
 iii) On prend un poste d'assembleur et on relie la limite de fabrication sur les roues et la carossorie à tous les agents.
