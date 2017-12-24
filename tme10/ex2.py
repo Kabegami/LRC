@@ -14,45 +14,116 @@ class Graphe(object):
             return self.relations[k]
         if (j,i) in self.relations:
             return transposeSet(self.relations[(j,i)])
-        return set(d.transpose.keys())
+        #quand on ne connait pas les relations tout est possible
+        #return set()
+        return GLOBAL_ALL_STATES
 
-    def propagation(self, n1, n2, c):
-        R = (n1, n2)
-        pile = [R]
-        print('c : ', c)
-        S = self.relations.get(R,set())
-        S.add(c)
-        self.relations[R] = S
-        print('self.relations : ', self.relations)
+    def __str__(self):
+        s = "GRAPHE \n"
+        s += "========================================== \n"
+        s += 'noeuds : {} \n'.format(self.noeuds)
+        s +='------------------------------------------ \n'
+        s +='relations : {} \n'.format(self.relations)
+        s += "========================================= \n"
+        return s
+
+    def ajouter(self, n1,n2,R):
+        #si le noeud existe deja ne fait rien
+        self.noeuds.add(n1)
+        self.noeuds.add(n2)
+        # Rij = self.getRelations(n1,n2)
+        # if type(R) == set:
+        #     Rij.union(R)
+        # else:
+        #     Rij.add(R)
+        if type(R) == set:
+            self.relations[(n1,n2)] = R
+        else:
+            self.relations[(n1,n2)] = {R}
+
+    def propa(self, n1,n2, c):
+        if self.relations == "Le système est impossible !":
+            return False
+        pile = [(n1,n2)]
+        cpt = 0
+        
+        if type(c) == set:
+            self.relations[(n1,n2)] = c
+        else:
+            self.relations[(n1,n2)] = {c}
         while pile != []:
-            Rij = pile.pop()
-            i,j = Rij
-            Rij_elems = self.getRelations(i,j)
-            print('i :',i)
-            print('j :',j)
+            i, j = pile.pop()
+            Rij = self.getRelations(i,j)
+            # print('Rij : ', Rij)
+            self.ajouter(i,j,Rij)
             for k in self.noeuds:
-                if k != i and k != j:
-                    Rik_elems = self.getRelations(i,k)
-                    Rki_elems = self.getRelations(k,i)
-                    Rkj_elems = self.getRelations(k,j)
-                    Rjk_elems = self.getRelations(j,k)
-                    new_Rik = Rik_elems.intersection(compositionSet(Rij_elems, Rjk_elems))
-                    new_Rkj = Rkj_elems.intersection(compositionSet(Rki_elems, Rij_elems))
+                if k != n1 and k != n2:
+                    Rik = self.getRelations(i,k)
+                    Rjk = self.getRelations(j,k)
+                    # print('R{}{} : {}'.format(i,j, Rij))
+                    # print('bla R{}{} : {}'.format(j,k ,Rjk))
+                    cc1 = compositionSet(Rij, Rjk)
+                    # print('Rik :', Rik)
+                    # print('cc1 :',cc1)
+                    new_Rik = Rik.intersection(cc1)
+                    #---------------------------
+                    Rkj = self.getRelations(k,j)
+                    # print('Rkj :', Rkj)
+                    Rki = self.getRelations(k,i)
+                    cc2 = compositionSet(Rki, Rij)
+                    # print('cc2 :' ,cc2)
+                    new_Rkj = Rkj.intersection(cc2)
+                    # print('new_Rkj :' ,Rkj)
                     if new_Rik == set() or new_Rkj == set():
-                        print('Contradiction temporelle !')
+                        print('Contradiction temporelle')
+                        self.relations = "Le système est impossible !"
                         return False
-                    if new_Rik != Rik_elems:
-                        self.relations[(i,k)] = new_Rik
-                        pile.append((i,k))
-                    if new_Rkj != Rkj_elems:
-                        self.relations[(k,j)] = new_Rkj
-                        pile.append((k,j))
-
-if __name__ == "__main__":
-    noeuds = {'A','B','C'}
-    R = {('A','B') : set('<'), ('A','C') : set('>')}
-    G = Graphe(noeuds, R)
-    G.propagation('B','C','=')
-    print('relations : ', G.relations)
-                
+                    if new_Rik != Rik:
+                        #print('new info')
+                        if (k,i) in self.relations:
+                            self.relations[(k,i)] = transposeSet(new_Rik)
+                            pile.append((k,i))
+                        else:
+                            self.relations[(i,k)] = new_Rik.copy()
+                            pile.append((i,k))
+                    if new_Rkj != Rkj:
+                        #print('new info')
+                        if (j,k) in self.relations:
+                            self.relations[(j,k)] = transposeSet(new_Rkj)
+                            pile.append((j,k))
+                        else:
+                            self.relations[(k,j)] = new_Rkj.copy()
+                            pile.append((k,j))
+            print('cpt :', cpt)
+            cpt += 1
             
+
+def question4():
+    #exemple 1
+    G1 = Graphe(set(), dict())
+    G1.ajouter('A','B','<')
+    G1.ajouter('A','C','>')
+    G1.propa('B','C','=')
+    #contradiction temporelle mais c'est normal car on a A < B = C et A > C ce qui est impossible
+    print('G1 :' ,G1)
+    
+    G2 = Graphe(set(), dict())
+    G2.ajouter('A','B','<')
+    G2.ajouter('A','C','<')
+    G2.propa('B','C','=')
+    #marche sans problème pas d'information suplémentaire ajouté
+    print('G2 : ', G2) 
+
+#if __name__ == "__main__":
+def main():
+    #question4()
+    #Question 5
+    G3 = Graphe({'S','L','R'}, dict())
+    G3.propa('L','S',{'ot','mt'})
+    #John n'est pas dans la piece quand j'appuis sur l'interupteur donc soit j'appuis avant soit apres
+    G3.propa('S','R',{'<','m','mt', '>'})
+    G3.propa('L','R',{'<','mt'})
+    print('G3 : ', G3)
+    #on obtient l'information que je touche l'interrupteur avant que John soit dans la piece
+
+main()

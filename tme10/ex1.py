@@ -1,5 +1,7 @@
 import definitions as d
 
+GLOBAL_ALL_STATES = {'<','>','e','s','et','st','d','m','dt','mt','o','ot','='}
+
 def transposeSet(S):
     b = set()
     for e in S:
@@ -32,7 +34,6 @@ def compose(e1, e2):
         #print('elem : ', elem)
         return symetrieSet(d.compositionBase[k2])
     k3 = (d.symetrie[d.transpose[e2]], d.symetrie[d.transpose[e1]])
-    #k3 = (d.transpose[d.symetrie[e1]], d.transpose[d.symetrie[e2]])
     if k3 in d.compositionBase:
         v = d.compositionBase[k3]
         v3 = transposeSet(symetrieSet(v))
